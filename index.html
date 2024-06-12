@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API Tester</title>
+</head>
+<body>
+    <button id="startTest">Start Test</button>
+    <script>
+        document.getElementById('startTest').addEventListener('click', () => {
+            const url = 'http://localhost:3000/api/users'; // Ganti dengan URL API Anda
+            const count = 1000;
+
+            const results = [];
+            let totalRequestTime = 0; // Menyimpan total waktu permintaan
+            let totalResponseTime = 0; // Menyimpan total waktu respons
+
+            async function testFetch(url, iteration) {
+                const startTime = performance.now();
+
+                try {
+                    const response = await fetch(url);
+                    const endTime = performance.now();
+                    const responseTime = ((endTime - startTime) / 1000).toFixed(3); // Konversi ke detik
+
+                    const responseData = await response.json();
+
+                    results.push({
+                        iteration: iteration,
+                        status: response.status,
+                        responseTime: parseFloat(responseTime),
+                        responseData: JSON.stringify(responseData)
+                    });
+
+                    totalResponseTime += parseFloat(responseTime); // Menambahkan waktu respons ke total
+
+                } catch (error) {
+                    console.error(`Error fetching ${url}:`, error);
+                }
+            }
+
+            async function runTests() {
+                const overallStartTime = performance.now();
+
+                for (let i = 0; i < count; i++) {
+                    await testFetch(url, i + 1);
+                }
+
+                const overallEndTime = performance.now();
+                const totalRequestTime = ((overallEndTime - overallStartTime) / 1000).toFixed(
+                    3); // Waktu total dalam detik
+                const averageResponseTime = (totalResponseTime / results.length).toFixed(
+                    3); // Rata-rata waktu dalam detik
+
+                // Objek untuk total dan rata-rata
+                const summary = {
+                    iteration: 'Summary',
+                    status: '',
+                    responseTime: totalRequestTime,
+                    responseData: averageResponseTime
+                };
+
+                results.push(summary); // Menambahkan objek ringkasan ke array hasil
+
+                console.table(results);
+            }
+
+            runTests();
+        });
+    </script>
+</body>
+</html>
