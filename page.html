@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expandable Table</title>
+    <style>
+        .nested-table {
+            display: none;
+        }
+
+        .expandable-row {
+            cursor: pointer;
+        }
+
+        .nested-table td {
+            padding-left: 40px;
+            /* Indent the nested table fields */
+        }
+    </style>
+</head>
+<body>
+    <table border="1" id="mainTable">
+        <thead>
+            <tr>
+                <th>Kantong darah</th>
+                <th>No. Stok</th>
+                <th>UTD</th>
+                <th>Tgl Kadaluarsa</th>
+                <th>Gol Darah</th>
+                <th>Jenis Darah</th>
+                <th>Volume (ml)</th>
+                <th>Pasien sesuai</th>
+                <th>Kantong sesuai</th>
+                <th>Keadaan kantong baik</th>
+                <th>Jam Keluar</th>
+                <th>Jam Diterima</th>
+                <th>Petugas 1</th>
+                <th>Petugas 2</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="expandable-row">
+                <td>1</td>
+                <td>742868256</td>
+                <td>PMI DKI</td>
+                <td>7/19/2024</td>
+                <td>O</td>
+                <td>Plasma</td>
+                <td>250</td>
+                <td>v</td>
+                <td>v</td>
+                <td>v</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="nested-table">
+                <td colspan="14">
+                    <table border="1" style="margin-left: 70px;">
+                        <thead>
+                            <tr>
+                                <th>Tgl</th>
+                                <th>Jam</th>
+                                <th>Tekanan Darah</th>
+                                <th>Nadi</th>
+                                <th>Suhu</th>
+                                <th>Respirasi</th>
+                                <th>Nyeri</th>
+                                <th>Reaksi Alegi</th>
+                                <th>Petugas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>6/19/2024</td>
+                                <td>3:00 PM</td>
+                                <td>100</td>
+                                <td>60</td>
+                                <td>98</td>
+                                <td>25</td>
+                                <td>5</td>
+                                <td>-</td>
+                                <td>anton</td>
+                            </tr>
+                            <tr>
+                                <td>6/19/2024</td>
+                                <td>7:00 PM</td>
+                                <td>98</td>
+                                <td>65</td>
+                                <td>89</td>
+                                <td>15</td>
+                                <td>8</td>
+                                <td>-</td>
+                                <td>anton</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr class="expandable-row">
+                <td>1</td>
+                <td>742868256</td>
+                <td>PMI DKI</td>
+                <td>7/19/2024</td>
+                <td>O</td>
+                <td>Plasma</td>
+                <td>250</td>
+                <td>v</td>
+                <td>v</td>
+                <td>v</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="nested-table">
+                <td colspan="14">
+                    <table border="1" style="margin-left: 70px;">
+                        <thead>
+                            <tr>
+                                <th>Tgl</th>
+                                <th>Jam</th>
+                                <th>Tekanan Darah</th>
+                                <th>Nadi</th>
+                                <th>Suhu</th>
+                                <th>Respirasi</th>
+                                <th>Nyeri</th>
+                                <th>Reaksi Alegi</th>
+                                <th>Petugas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>6/19/2024</td>
+                                <td>3:00 PM</td>
+                                <td>100</td>
+                                <td>60</td>
+                                <td>98</td>
+                                <td>25</td>
+                                <td>5</td>
+                                <td>mual</td>
+                                <td>anton</td>
+                            </tr>
+                            <tr>
+                                <td>6/19/2024</td>
+                                <td>7:00 PM</td>
+                                <td>98</td>
+                                <td>65</td>
+                                <td>89</td>
+                                <td>15</td>
+                                <td>8</td>
+                                <td>-</td>
+                                <td>anton</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const expandableRows = document.querySelectorAll(".expandable-row");
+
+            expandableRows.forEach(row => {
+                row.addEventListener("click", function () {
+                    const nextRow = this.nextElementSibling;
+                    if (nextRow && nextRow.classList.contains("nested-table")) {
+                        nextRow.style.display = nextRow.style.display === "none" ? "table-row" :
+                            "none";
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -9,18 +9,25 @@
     <button id="startTest">Start Test</button>
     <script>
         document.getElementById('startTest').addEventListener('click', () => {
-            const url = 'http://localhost:3000/api/users'; // Ganti dengan URL API Anda
-            const count = 1000;
+            const url = 'http://9.9.9.9:3000/api/categories'; // Ganti dengan URL API Anda
+            const count = 300;
 
             const results = [];
             let totalRequestTime = 0; // Menyimpan total waktu permintaan
             let totalResponseTime = 0; // Menyimpan total waktu respons
-
+            const token =
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlcm5hbWUiOiJyaXprYW5maXJtYW5zeWFoMSIsImVtYWlsIjoicml6a2FuZmlybWFuc3lhaDFAZ21haWwuY29tIiwiaWF0IjoxNzE4NzMyMDYxfQ.syNVKl7EN2LKRQ-qP20tcpcpG8K20mC0f_ta71l6rsw";
+            const options = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            };
             async function testFetch(url, iteration) {
                 const startTime = performance.now();
 
                 try {
-                    const response = await fetch(url);
+                    const response = await fetch(url, options);
                     const endTime = performance.now();
                     const responseTime = ((endTime - startTime) / 1000).toFixed(3); // Konversi ke detik
 
